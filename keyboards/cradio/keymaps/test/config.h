@@ -7,7 +7,7 @@
 #pragma once
 
 // Defaults for usable home row mods
-#define TAPPING_TERM 170
+#define TAPPING_TERM 230
 
 // Improved mouse key defaults
 // Delay between pressing a key and cursor movement
