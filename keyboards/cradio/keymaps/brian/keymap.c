@@ -7,6 +7,13 @@ enum combo_events {
     ENTER,
     L_PAREN,
     R_PAREN,
+    ASTERISK,
+    AMPERSAND,
+    PLAY_PAUSE,
+    ENTER_NAV,
+    COMMAND_BACKTICK,
+    MAC_UNDO,
+    ENTER_NP,
     COMBO_LENGTH
 };
 
@@ -19,28 +26,48 @@ const uint16_t PROGMEM enter[] = {KC_H, KC_J, COMBO_END};
 // Nav/Shortcut combos
 const uint16_t PROGMEM l_paren[] = {KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM r_paren[] = {KC_L, KC_K, COMBO_END};
+const uint16_t PROGMEM asterisk[] = {KC_I, KC_O, COMBO_END};
+const uint16_t PROGMEM ampersand[] = {KC_U, KC_I, COMBO_END};
+const uint16_t PROGMEM play_pause[] = {KC_S, KC_D, COMBO_END};
+const uint16_t PROGMEM enter_nav[] = {KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM command_backtick[] = {KC_W, KC_E, COMBO_END};
+const uint16_t PROGMEM mac_undo[] = {KC_X, KC_C, COMBO_END};
+
+// Numpad combos
+const uint16_t PROGMEM enter_np[] = { KC_H, KC_J, COMBO_END};
 
 combo_t key_combos[COMBO_LENGTH] = {
     COMBO(numpad, KC_ENTER),
-    COMBO(capsword, KC_TAB),
+    COMBO(capsword, CW_TOGG),
     COMBO(tab, KC_TAB),
     COMBO(enter, KC_ENTER),
     COMBO(l_paren, LSFT(KC_9)),
-    COMBO(r_paren, LSFT(KC_0))
+    COMBO(r_paren, LSFT(KC_0)),
+    COMBO(asterisk, LSFT(8)),
+    COMBO(ampersand, LSFT(7)),
+    COMBO(play_pause, KC_MPLY),
+    COMBO(enter_nav, KC_ENTER),
+    COMBO(command_backtick, LGUI(KC_GRV)),
+    COMBO(mac_undo, LGUI(KC_Z)),
+    COMBO(enter_np, KC_ENTER)
 };
 
 const uint16_t* layer_0_combos[] = { numpad, capsword, tab, enter, COMBO_END };
-const uint16_t* layer_2_combos[] = { r_paren, COMBO_END };
-// const uint16_t* layer_2_combos[] = { COMBO_END }
+const uint16_t* layer_1_combos[] = { enter_nav, play_pause, COMBO_END };
+const uint16_t* layer_2_combos[] = { l_paren, r_paren, asterisk, ampersand, COMBO_END };
+const uint16_t* layer_4_combos[] = { enter_np, COMBO_END };
 
 
 const uint16_t** get_combo_config(void) {
     switch (biton32(layer_state)) {
         case 0:
             return layer_0_combos;
+        case 1:
+            return layer_1_combos;
         case 2:
             return layer_2_combos;
-            break;
+        case 4:
+            return layer_4_combos;
         default:
             return layer_0_combos;
     }
